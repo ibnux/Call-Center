@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Call Center</title>
+		<!--
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		-->
+		<link rel="stylesheet" href="../jquerymobile/BlackBerry-JQM-all.min.css" />
+		<script src="../jquerymobile/BlackBerry-JQM-all.min.js"></script>
+        <script type="text/javascript">
+        function onPageShow()
+        {
+			//var url = $.url(document.location);
+			//alert(document.location.toString());
+            //var region = url.param("region");
+			var temp = document.location.toString() ;
+			temp = temp.split('=');
+			if(temp.length>0){
+				var region = temp[1];
+				
+				$.get("region/"+region+".txt",function(data,status){
+					if(status=='success'){
+						hasil = data.split('\n');
+						for(n=0;n<hasil.length;n++){
+							if(hasil[n].length>2)
+								$('#hasil').append('<div><h1>'+hasil[n].replace('<>','</h1><p>')+'</p></div>');
+							}
+						//$('#hasil').add(elmen);
+						//document.getElementById('hasil').innerHTML = elmen;
+						$('#hasil').listview('refresh');
+					}else
+						alert('Gagal mengambil data');
+				});
+			}else{
+				
+			}
+        }
+    </script>
+	</head>
+	<body bgcolor="#000000" onLoad="onPageShow()">
+	<div data-role="page" id="RegionPage">
+			<div data-role="header" data-theme="c">
+				<h1>.: Esia :.</h1>
+			</div><!-- /header -->
+            <center><div id="nuxAds"></div></center>
+			<script src="http://iklan.ibnux.com/iklanJS.php?a=4"></script>
+			<div data-role="content" data-theme="c">
+				<div id="hasil">
+				</div>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div id="action-bar-area" data-role="actionbar">
+					<div data-role="back"></div>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>
